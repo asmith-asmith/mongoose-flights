@@ -1,17 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <title>Mongoose Flights</title>
-</head>
-<body>
-    <header>
-        <a href="/flights">All Flights</a>
-        <a href="/flights/new">New Flight</a>
-    </header>
-    <h1>Flights</h1>
+<%- include('../partials/header') %>
     <table>
       <thead>
           <tr>
@@ -22,16 +9,16 @@
           </tr>
       </thead>
       <tbody>
-        <% flights.forEach(function(f) { %>    
-          <tr>
+        <% flights.forEach(function(f) { %>
+            <tr>
                   <td><%= f.airline %></td>
                   <td><%= f.airport %></td>
                   <td><%= f.flightNo %></td>
                   <td><%= f.departs %></td>
+                  <td><a href="/flights/<%=f._id %>">Details</a></td>
               </tr>
         <% }); %>
         </tbody><br>
     </table>
     <a href="/flights/new">Add Flight</a>
-</body>
-</html>
+<%- include('../partials/footer') %>

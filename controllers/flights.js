@@ -3,16 +3,24 @@ const Flight = require('../models/flights');
 module.exports = {
     index,
     create,
-    new: newFlight
+    new: newFlight,
+    show,
+    delete: deleteFlight
 };
 
 function index(req,res){
-    Flight.find({}, function(err, flights){
+    Flight.find({}, null, {sort: '-date'}, function(err, flights){
         res.render('flights/index', {
-            flights
+            flights, title: "All Flights"
         })
     })
-}
+};
+
+function newFlight(req, res){
+    const newFlight = new Flight();
+    res.render('flights/new', {title: "New Flight"})
+};
+
 
 function create(req,res){
     const flight = new Flight(req.body);
@@ -20,10 +28,20 @@ function create(req,res){
         if(err) return res.render('flights/new')
         res.redirect('/flights')
     })
+};
+
+function show(req, res){
+    Flight.findById(req.params.id, null, {sort: '-date'}, function(err, flight){
+        res.render('flights/show',{
+            flight, title: "Flight"})
+    })
+};
+
+function deleteFlight(req, res){
+    console.log("before mongoose method")
+    Flight.deleteOne({_id: req.params.id}, function(err, flight){
+        if (err) return res.status(500).send(err);
+        console.log("Here in deleteFlight - deleteOne")
+        res.redirect('/flights');
+    })
 }
-
-function newFlight(req, res){
-    res.render('flights/new')
-}
-
-
