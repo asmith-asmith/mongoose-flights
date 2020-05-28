@@ -1,4 +1,6 @@
 const Flight = require('../models/flights');
+const Ticket = require('../models/tickets');
+
 
 module.exports = {
     index,
@@ -10,9 +12,7 @@ module.exports = {
 
 function index(req,res){
     Flight.find({}, null, {sort: '-date'}, function(err, flights){
-        res.render('flights/index', {
-            flights, title: "All Flights"
-        })
+        res.render('flights/index', {flights, title: "All Flights"})
     })
 };
 
@@ -22,19 +22,21 @@ function newFlight(req, res){
 };
 
 
-function create(req,res){
+function create(req, res){
     const flight = new Flight(req.body);
     flight.save(function(err){
         if(err) return res.render('flights/new')
         res.redirect('/flights')
-    })
+    });
 };
 
 function show(req, res){
     Flight.findById(req.params.id, null, {sort: '-date'}, function(err, flight){
-        res.render('flights/show',{
-            flight, title: "Flight"})
-    })
+        Ticket.find({flight: flight._id}, function(err, tickets){
+            res.render('flights/show',{
+                flight, tickets, title: "Flight"})
+        });
+    });
 };
 
 function deleteFlight(req, res){
@@ -43,5 +45,5 @@ function deleteFlight(req, res){
         if (err) return res.status(500).send(err);
         console.log("Here in deleteFlight - deleteOne")
         res.redirect('/flights');
-    })
-}
+    });
+};

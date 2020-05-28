@@ -11,7 +11,9 @@ require('./config/database');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var flightsRouter = require('./routes/flights')
-var destRouter = require('./routes/destinations')
+var destRouter = require('./routes/destinations');
+var ticketRouter = require('./routes/tickets');
+
 
 var app = express();
 
@@ -30,7 +32,11 @@ app.use(methodOverride('_method'));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/flights', flightsRouter);
-app.use('/', destRouter)
+app.use('/', destRouter);
+app.use('/', ticketRouter);
+
+
+
 
 
 // catch 404 and forward to error handler
