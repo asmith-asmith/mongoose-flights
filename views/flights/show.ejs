@@ -44,7 +44,7 @@
         <% flight.destinations.forEach(function(d) { %>
           <tr>
             <td><%= d.airport %></td>
-            <td><%= d.arrival.toLocaleString() %></td>
+            <td><%= d.arrival.toLocaleString()%></td>
             <td><form action="/flights/<%= flight._id%>/destinations/<%= d._id %>?_method=DELETE"
               class="delete-form" method="POST">
               <button type="submit">Delete</button>
@@ -73,7 +73,7 @@
         <tr>
           <td><%= t.seat %></td>
           <td><%= t.price %></td>
-          <td><form action="/flights/<%= flight._id%>/destinations/<%= t._id %>?_method=DELETE"
+          <td><form action="/flights/<%= flight._id%>/tickets/<%= t._id %>?_method=DELETE"
             class="delete-form" method="POST">
             <button type="submit">Delete</button>
           </form></td>

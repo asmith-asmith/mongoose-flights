@@ -9,7 +9,12 @@ const destinationSchema = new Schema ({
         enum: ['AUS', 'DFW', 'DEN', 'LAX', 'SAN']
     },
     arrival: {
-        type: Date
+        type: Date,
+        default: function () {
+            const defaultDate = new Date();
+            defaultDate.setFullYear(defaultDate.getFullYear() + 1);
+            return defaultDate;
+        }
     }
 });
 

@@ -33,6 +33,7 @@ function create(req, res){
 function show(req, res){
     Flight.findById(req.params.id, null, {sort: '-date'}, function(err, flight){
         Ticket.find({flight: flight._id}, function(err, tickets){
+            console.log(tickets)
             res.render('flights/show',{
                 flight, tickets, title: "Flight"})
         });
